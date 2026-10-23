@@ -8,4 +8,19 @@ Operadores: +, -, *,  /, =
 
 Delimitadores: (, ), {, }, ;, ", ", 
 
-Palabras reservadas: int, float, boolean, double, print, 
+Palabras reservadas: int, float, boolean, double, print, main, class
+
+Ejemplo: 
+
+class{
+    int x = 1;
+    int y = 2;
+    int z = 0;
+
+    main{
+        z = x + y;
+        print(z);
+    } 
+}
+
+
