@@ -1,0 +1,11 @@
+Alfabetos:
+
+Letras: a - z - A - Z
+
+Números: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+
+Operadores: +, -, *,  /, =
+
+Delimitadores: (, ), {, }, ;, ", ", 
+
+Palabras reservadas: int, float, boolean, double, print, 
