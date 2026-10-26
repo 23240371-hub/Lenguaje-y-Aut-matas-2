@@ -76,9 +76,9 @@ public class Simbolo {
             case "double":
                 return 8;
             case "boolean":
-            case "char":
             case "byte":
                 return 1;
+            case "char":
             case "short":
                 return 2;
             default:
