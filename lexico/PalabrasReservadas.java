@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class PalabrasReservadas {
 
-    // 1. Lista simple con las palabras reservadas en texto
+    // 1. Lista simple con las palabras reservadas 
     public static final List<String> LISTA_PALABRAS = new ArrayList<>();
 
-    // 2. Mapa para asociar la palabra con su token (igual que en Operadores)
+    // 2. Mapa para asociar la palabra con su token 
     private static final Map<String, String> PALABRAS_RESERVADAS = new HashMap<>();
 
     static {
@@ -21,7 +21,7 @@ public class PalabrasReservadas {
         LISTA_PALABRAS.add("main");
         LISTA_PALABRAS.add("class");
 
-        // Carga del mapa para identificación rápida
+        // Carga del mapa 
         PALABRAS_RESERVADAS.put("int", "PR_INT");
         PALABRAS_RESERVADAS.put("float", "PR_FLOAT");
         PALABRAS_RESERVADAS.put("boolean", "PR_BOOLEAN");
@@ -31,17 +31,14 @@ public class PalabrasReservadas {
         PALABRAS_RESERVADAS.put("class", "PR_CLASS");
     }
 
-    /**
-     * Devuelve el tipo de token (ej. "PR_INT") o null si no es palabra reservada.
-     */
+    
+     
     public static String getTipoPalabra(String palabra) {
         if (palabra == null) return null;
         return PALABRAS_RESERVADAS.get(palabra);
     }
 
-    /**
-     * Valida si una palabra ingresada es una palabra reservada.
-     */
+    
     public static boolean esPalabraReservada(String palabra) {
         if (palabra == null) return false;
         return PALABRAS_RESERVADAS.containsKey(palabra);
