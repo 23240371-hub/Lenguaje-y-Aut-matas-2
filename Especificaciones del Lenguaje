@@ -8,7 +8,7 @@ Operadores: +, -, *,  /, =
 
 Delimitadores: (, ), {, }, ;, ", ", 
 
-Palabras reservadas: int, float, boolean, double, print, main, class
+Palabras reservadas: int, float, boolean, double, print, main, class, if, else, while
 
 Ejemplo: 
 
