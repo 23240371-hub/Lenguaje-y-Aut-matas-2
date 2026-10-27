@@ -6,7 +6,7 @@ public class Operadores {
     private static final Map<String, String> OPERADORES = new HashMap<>();
 
     static {
-        // Operadores de tu alfabeto
+        // Operadores del alfabeto
         OPERADORES.put("+", "OPERADOR_SUMA");
         OPERADORES.put("-", "OPERADOR_RESTA");
         OPERADORES.put("*", "OPERADOR_MULTIPLICACION");
