@@ -13,7 +13,7 @@ public class Operadores {
         OPERADORES.put("/", "OPERADOR_DIVISION");
         OPERADORES.put("=", "OPERADOR_ASIGNACION");
 
-        // Operadores extra comunes
+        // Operadores extra 
         OPERADORES.put("%", "OPERADOR_MODULO");
         OPERADORES.put("==", "OPERADOR_IGUALDAD");
         OPERADORES.put("!=", "OPERADOR_DIFERENTE");
