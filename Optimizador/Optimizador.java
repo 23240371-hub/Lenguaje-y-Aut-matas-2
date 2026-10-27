@@ -1,5 +1,3 @@
-package com.mycompany.compilador;
-
 import java.util.List;
 
 public class Optimizador {

@@ -1,0 +1,16 @@
+<Programa>      -> class { <Declaraciones> main { <Sentencias> } }
+<Declaraciones> -> <Tipo> id = <Expr> ; <Declaraciones> | ε
+<Tipo>          -> int | float | boolean | double
+<Sentencias>    -> <Sentencia> <Sentencias> | ε
+<Sentencia>     -> <Asignacion> | <Print> | <If> | <While>
+<Asignacion>    -> id = <Expr> ;
+<Print>         -> print ( <Expr> ) ;
+<If>            -> if ( <ExprLogica> ) { <Sentencias> }
+<While>         -> while ( <ExprLogica> ) { <Sentencias> }
+
+// Expresiones matemáticas (Precedencia controlada)
+<Expr>          -> <Termino> <ExprPrima>
+<ExprPrima>     -> + <Termino> <ExprPrima> | - <Termino> <ExprPrima> | ε
+<Termino>       -> <Factor> <TerminoPrima>
+<TerminoPrima>  -> * <Factor> <TerminoPrima> | / <Factor> <TerminoPrima> | ε
+<Factor>        -> ( <Expr> ) | id | num
