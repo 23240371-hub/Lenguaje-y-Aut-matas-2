@@ -14,3 +14,8 @@
 <Termino>       -> <Factor> <TerminoPrima>
 <TerminoPrima>  -> * <Factor> <TerminoPrima> | / <Factor> <TerminoPrima> | ε
 <Factor>        -> ( <Expr> ) | id | num
+
+// --- ESTRUCTURAS DE CONTROL ---
+<If>            -> if ( <Expr> ) { <Sentencias> } <ElseOpcional>
+<ElseOpcional>  -> else { <Sentencias> } | ε
+<While>         -> while ( <Expr> ) { <Sentencias> }

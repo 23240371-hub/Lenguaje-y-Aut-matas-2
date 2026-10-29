@@ -77,4 +77,9 @@ public class EstructurasDelLenguaje {
             System.err.println("no se encontro el archivo");
         }    
     }
+    public ArrayList<String> getTerminales() { return terminales; }
+    public ArrayList<String> getNoTerminales() { return noTerminales; }
+    public ArrayList<String> getLadoIzquierdo() { return ladoIzquierdo; }
+    public ArrayList<String[]> getLadoDerecho() { return ladoDerecho; }
+
 }
