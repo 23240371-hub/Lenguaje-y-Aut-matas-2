@@ -5,30 +5,37 @@ public class TablaSimbolos {
 
     private String nombreAmbito;             
     private TablaSimbolos padre;             
-    private Map<String, Simbolo> tabla;       
+    private Map<String, Simbolo> tabla;      
     private int contadorMemoria;             
+    private ManejadorErrores manejadorErrores;
 
-    public TablaSimbolos(String nombreAmbito) {
-        this(nombreAmbito, null);
+    public TablaSimbolos(String nombreAmbito, ManejadorErrores manejador) {
+        this(nombreAmbito, null, manejador);
     }
 
-    public TablaSimbolos(String nombreAmbito, TablaSimbolos padre) {
+    public TablaSimbolos(String nombreAmbito, TablaSimbolos padre, ManejadorErrores manejador) {
         this.nombreAmbito = nombreAmbito;
         this.padre = padre;
         this.tabla = new HashMap<>();
         this.contadorMemoria = (padre != null) ? padre.contadorMemoria : 0;
+        this.manejadorErrores = manejador;
     }
-  
+
     public boolean insertar(String nombre, String tipoDato, Object valorInicial, int linea) {
         if (tabla.containsKey(nombre)) {
-            System.err.println("Error semántico en línea " + linea + ": La variable '" + nombre + "' ya fue declarada en el ámbito '" + nombreAmbito + "'.");
+            if (manejadorErrores != null) {
+                manejadorErrores.agregarErrorSemantico(
+                    linea, 
+                    "La variable '" + nombre + "' ya fue declarada en el ámbito '" + nombreAmbito + "'."
+                );
+            }
             return false;
         }
 
         int dirMemoria = this.contadorMemoria;
 
         Simbolo simbolo = new Simbolo(nombre, tipoDato, this.nombreAmbito, valorInicial, linea, dirMemoria);
-        
+
         tabla.put(nombre, simbolo);
 
         this.contadorMemoria += Simbolo.getTamanioEnBytes(tipoDato);
