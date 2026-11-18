@@ -1,3 +1,5 @@
+package prueba;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +22,9 @@ public class ManejadorErrores {
             this.descripcion = descripcion;
         }
 
-        public TipoError getTipo() {
-            return tipo;
-        }
-
-        public int getLinea() {
-            return linea;
-        }
-
-        public String getDescripcion() {
-            return descripcion;
-        }
+        public TipoError getTipo() { return tipo; }
+        public int getLinea() { return linea; }
+        public String getDescripcion() { return descripcion; }
 
         @Override
         public String toString() {
@@ -45,12 +39,12 @@ public class ManejadorErrores {
         this.listaErrores = new ArrayList<>();
     }
 
-    public void agregarErrorSintactico(int linea, String mensaje) {
-        listaErrores.add(new ErrorCompilador(TipoError.SINTACTICO, linea, mensaje));
-    }
-
     public void agregarErrorLexico(int linea, String mensaje) {
         listaErrores.add(new ErrorCompilador(TipoError.LEXICO, linea, mensaje));
+    }
+
+    public void agregarErrorSintactico(int linea, String mensaje) {
+        listaErrores.add(new ErrorCompilador(TipoError.SINTACTICO, linea, mensaje));
     }
 
     public void agregarErrorSemantico(int linea, String mensaje) {
@@ -75,7 +69,7 @@ public class ManejadorErrores {
 
     public void imprimirErrores() {
         if (listaErrores.isEmpty()) {
-            System.out.println(">>> Compilación exitosa: No se encontraron errores.");
+            System.out.println("\n>>> Compilación exitosa: No se encontraron errores.");
             return;
         }
 
