@@ -1,3 +1,5 @@
+package prueba;
+
 public class ValidadorTipos {
 
     private ManejadorErrores manejadorErrores;
