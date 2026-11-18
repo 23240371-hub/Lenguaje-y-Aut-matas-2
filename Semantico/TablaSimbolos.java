@@ -1,12 +1,14 @@
+package prueba;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class TablaSimbolos {
 
-    private String nombreAmbito;             
-    private TablaSimbolos padre;             
-    private Map<String, Simbolo> tabla;      
-    private int contadorMemoria;             
+    private String nombreAmbito;
+    private TablaSimbolos padre;
+    private Map<String, Simbolo> tabla;
+    private int offsetGlobal; 
     private ManejadorErrores manejadorErrores;
 
     public TablaSimbolos(String nombreAmbito, ManejadorErrores manejador) {
@@ -17,28 +19,38 @@ public class TablaSimbolos {
         this.nombreAmbito = nombreAmbito;
         this.padre = padre;
         this.tabla = new HashMap<>();
-        this.contadorMemoria = (padre != null) ? padre.contadorMemoria : 0;
+        this.offsetGlobal = 0;
         this.manejadorErrores = manejador;
+    }
+
+    private TablaSimbolos getRaiz() {
+        TablaSimbolos actual = this;
+        while (actual.padre != null) {
+            actual = actual.padre;
+        }
+        return actual;
     }
 
     public boolean insertar(String nombre, String tipoDato, Object valorInicial, int linea) {
         if (tabla.containsKey(nombre)) {
             if (manejadorErrores != null) {
                 manejadorErrores.agregarErrorSemantico(
-                    linea, 
+                    linea,
                     "La variable '" + nombre + "' ya fue declarada en el ámbito '" + nombreAmbito + "'."
                 );
             }
             return false;
         }
 
-        int dirMemoria = this.contadorMemoria;
+        int tamanioBytes = Simbolo.getTamanioEnBytes(tipoDato);
 
-        Simbolo simbolo = new Simbolo(nombre, tipoDato, this.nombreAmbito, valorInicial, linea, dirMemoria);
+        TablaSimbolos raiz = getRaiz();
+        int offsetActual = raiz.offsetGlobal;
 
+        Simbolo simbolo = new Simbolo(nombre, tipoDato, this.nombreAmbito, valorInicial, linea, offsetActual);
         tabla.put(nombre, simbolo);
 
-        this.contadorMemoria += Simbolo.getTamanioEnBytes(tipoDato);
+        raiz.offsetGlobal += tamanioBytes;
 
         return true;
     }
@@ -47,29 +59,21 @@ public class TablaSimbolos {
         if (tabla.containsKey(nombre)) {
             return tabla.get(nombre);
         } else if (padre != null) {
-            return padre.buscar(nombre); 
+            return padre.buscar(nombre);
         }
-        return null; 
+        return null;
     }
 
     public boolean existe(String nombre) {
         return buscar(nombre) != null;
     }
 
-    public String getNombreAmbito() {
-        return nombreAmbito;
-    }
+    public String getNombreAmbito() { return nombreAmbito; }
+    public TablaSimbolos getPadre() { return padre; }
+    public Map<String, Simbolo> getTabla() { return tabla; }
 
-    public TablaSimbolos getPadre() {
-        return padre;
-    }
-
-    public Map<String, Simbolo> getTabla() {
-        return tabla;
-    }
-
-    public int getContadorMemoria() {
-        return contadorMemoria;
+    public int getMemoriaTotalAsignada() {
+        return getRaiz().offsetGlobal;
     }
 
     public void imprimirTabla() {
