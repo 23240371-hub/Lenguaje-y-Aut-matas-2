@@ -1,99 +1,129 @@
-package com.mycompany.compilador;
-
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TACOptimizador {
+// 1. Clase contenedora incluida para ejecución autónoma
+class Cuadruplo {
+    public String operador;
+    public String arg1;
+    public String arg2;
+    public String resultado;
 
-    public void simplificacionAlgebraica(List<Cuadruplo> lista) {
-        for (Cuadruplo c : lista) {
-            // 1. Elimina sumas con 0
+    public static List<Cuadruplo> listaCuadruplos = new ArrayList<>();
+
+    public Cuadruplo(String operador, String arg1, String arg2, String resultado) {
+        this.operador = operador;
+        this.arg1 = arg1;
+        this.arg2 = arg2;
+        this.resultado = resultado;
+    }
+
+    public static void generar(String operador, String arg1, String arg2, String resultado){
+        Cuadruplo nuevo = new Cuadruplo(operador, arg1, arg2, resultado);
+        listaCuadruplos.add(nuevo);
+    }
+    
+    public static void imprimirTabla(){
+        System.out.printf("%-6s | %-10s | %-10s | %-10s | %-10s%n", 
+                          "Índice", "Operador", "Arg1", "Arg2", "Resultado");
+        System.out.println("---------------------------------------------------------------");
+        
+        for(int i = 0;i < listaCuadruplos.size(); i++){
+            Cuadruplo c = listaCuadruplos.get(i);
+            
+            String op = (c.operador != null && !c.operador.isEmpty()) ? c.operador : "-";
+            String a1 = (c.arg1 != null && !c.arg1.isEmpty()) ? c.arg1 : "-";
+            String a2 = (c.arg2 != null && !c.arg2.isEmpty()) ? c.arg2 : "-";
+            String res = (c.resultado != null && !c.resultado.isEmpty()) ? c.resultado : "-";
+            
+            System.out.printf("%-6d | %-10s | %-10s | %-10s | %-10s%n", i, op, a1, a2, res);
+        }
+        System.out.println();
+    }
+}
+public class TACOptimizador {
+    public boolean simplificacionAlgebraica(){
+        boolean modificado = false;
+        
+        for(Cuadruplo c : Cuadruplo.listaCuadruplos){
+            //Para SUMA
             if (c.operador.equals("+")) {
-                if ("0".equals(c.arg2)) {
+                if ("0".equals(c.arg2)) { //Si hay un 0 en el argumento 2
                     c.operador = "=";
                     c.arg2 = null;
-                } else if ("0".equals(c.arg1)) {
+                    modificado = true;                
+                } else if ("0".equals(c.arg1)){
                     c.operador = "=";
                     c.arg1 = c.arg2;
                     c.arg2 = null;
-                }
-            } 
-            // 2. Elimina restas con 0 (Solo el arg2)
-            else if (c.operador.equals("-")) {
-                if ("0".equals(c.arg2)) {
+                    modificado = true;
+                }  
+            //Para RESTA
+            } else if(c.operador.equals("-")){
+                if("0".equals(c.arg2)){
                     c.operador = "=";
                     c.arg2 = null;
+                    modificado = true;
                 }
-            }
-            // 3. Simplificaciones de multiplicación
-            else if (c.operador.equals("*")) {
-                if ("0".equals(c.arg1) || "0".equals(c.arg2)) {
+            //Para MULTIPLICACION
+            } else if(c.operador.equals("*")){
+                if ("0".equals(c.arg1) || "0".equals(c.arg2)){
                     c.operador = "=";
                     c.arg1 = "0";
                     c.arg2 = null;
-                } else if ("1".equals(c.arg2)) {
+                    modificado = true;
+                } else if("1".equals(c.arg2)){
                     c.operador = "=";
                     c.arg2 = null;
-                } else if ("1".equals(c.arg1)) {
+                    modificado = true;
+                } else if("1".equals(c.arg1)){
                     c.operador = "=";
                     c.arg1 = c.arg2;
                     c.arg2 = null;
-                } else if ("2".equals(c.arg2)) {
+                    modificado = true;
+                } else if("2".equals(c.arg2)){
                     c.operador = "+";
                     c.arg2 = c.arg1;
-                } else if ("2".equals(c.arg1)) {
+                    modificado = true;
+                } else if("2".equals(c.arg1)){
                     c.operador = "+";
                     c.arg1 = c.arg2;
+                    modificado = true;
                 }
             }
         }
+        return modificado;
     }
-
-    public void eliminacionCodigoMuerto(List<Cuadruplo> lista) {
-        boolean huboCambios;
-        do {
-            huboCambios = false;
-            Iterator<Cuadruplo> it = lista.iterator();
-            while (it.hasNext()) {
-                Cuadruplo c = it.next();
-                if (c.resultado != null && c.resultado.startsWith("t")) {
-                    boolean usado = false;
-                    for (Cuadruplo revisado : lista) {
-                        if (c.resultado.equals(revisado.arg1) || c.resultado.equals(revisado.arg2)) {
-                            usado = true;
-                            break;
-                        }
-                    }
-                    if (!usado) {
-                        it.remove();
-                        huboCambios = true;
-                        break; 
+    //Devuelve "true" automaticamente si borra un temporal inutil
+    public boolean eliminacionCodigoMuerto(){
+        Iterator<Cuadruplo> it = Cuadruplo.listaCuadruplos.iterator();
+        while(it.hasNext()){
+            Cuadruplo c = it.next();
+            if(c.resultado != null && c.resultado.startsWith("t")){
+                boolean usado = false;
+                for(Cuadruplo revisado : Cuadruplo.listaCuadruplos){
+                    if(c.resultado.equals(revisado.arg1) || c.resultado.equals(revisado.arg2)){
+                        usado = true;
+                        break;
                     }
                 }
+                if (!usado){
+                    it.remove();
+                    return true; //Borra algo, avisa para reiniciar la revision
+                }
             }
-        } while (huboCambios); 
-    }
-
-    // Método central que invoca las pasadas repetidamente hasta que no haya cambios
-    public void optimizar(List<Cuadruplo> codigoIntermedio) {
-        boolean huboCambios;
-        do {
-            String estadoAnterior = generarFirma(codigoIntermedio);
-
-            simplificacionAlgebraica(codigoIntermedio);
-            eliminacionCodigoMuerto(codigoIntermedio);
-
-            String estadoActual = generarFirma(codigoIntermedio);
-            huboCambios = !estadoAnterior.equals(estadoActual);
-
-        } while (huboCambios); 
-    }
-
-    private String generarFirma(List<Cuadruplo> lista) {
-        StringBuilder sb = new StringBuilder();
-        for (Cuadruplo c : lista) {
-            sb.append(c.operador).append(c.arg1).append(c.arg2).append(c.resultado);
+            
         }
-        return sb.toString();
+        return false; //Reviso todo y elimino la basura
+    }
+    
+    public void optimizar(){  
+        boolean huboCambios;
+        do{
+            boolean cambiosAlgebra = simplificacionAlgebraica();
+            boolean cambiosMuertos = eliminacionCodigoMuerto();
+            
+            huboCambios = cambiosAlgebra || cambiosMuertos;
+        }   while (huboCambios);
     }
 }
