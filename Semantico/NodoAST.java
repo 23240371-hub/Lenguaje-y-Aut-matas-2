@@ -1,3 +1,5 @@
+package prueba;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public abstract class NodoAST {
     public static class Declaracion extends NodoAST {
         public String tipoDato;
         public String nombre;
-        public NodoAST expresionInicial; 
+        public NodoAST expresionInicial;
 
         public Declaracion(int linea, String tipoDato, String nombre, NodoAST expresionInicial) {
             super(linea);
@@ -51,7 +53,7 @@ public abstract class NodoAST {
             this.bloqueEntonces = Arrays.asList(bloqueEntonces);
         }
     }
-    
+
     public static class While extends NodoAST {
         public NodoAST condicion;
         public List<NodoAST> cuerpo;
