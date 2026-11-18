@@ -1,11 +1,11 @@
 public class Simbolo {
 
-    private String nombre;      
-    private String tipoDato;    
-    private String ambito;          
-    private Object valorInicial;    
-    private int lineaDeclaracion;     
-    private int direccionMemoria;     
+    private String nombre;
+    private String tipoDato;
+    private String ambito;
+    private Object valorInicial;
+    private int lineaDeclaracion;
+    private int direccionMemoria; 
 
     public Simbolo(String nombre, String tipoDato, String ambito, Object valorInicial, int lineaDeclaracion, int direccionMemoria) {
         this.nombre = nombre;
@@ -20,76 +20,50 @@ public class Simbolo {
         this(nombre, tipoDato, ambito, valorInicial, -1, direccionMemoria);
     }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public String getTipoDato() { return tipoDato; }
+    public void setTipoDato(String tipoDato) { this.tipoDato = tipoDato; }
 
-    public String getTipoDato() {
-        return tipoDato;
-    }
+    public String getAmbito() { return ambito; }
+    public void setAmbito(String ambito) { this.ambito = ambito; }
 
-    public void setTipoDato(String tipoDato) {
-        this.tipoDato = tipoDato;
-    }
+    public Object getValorInicial() { return valorInicial; }
+    public void setValorInicial(Object valorInicial) { this.valorInicial = valorInicial; }
 
-    public String getAmbito() {
-        return ambito;
-    }
+    public int getLineaDeclaracion() { return lineaDeclaracion; }
+    public void setLineaDeclaracion(int lineaDeclaracion) { this.lineaDeclaracion = lineaDeclaracion; }
 
-    public void setAmbito(String ambito) {
-        this.ambito = ambito;
-    }
-
-    public Object getValorInicial() {
-        return valorInicial;
-    }
-
-    public void setValorInicial(Object valorInicial) {
-        this.valorInicial = valorInicial;
-    }
-
-    public int getLineaDeclaracion() {
-        return lineaDeclaracion;
-    }
-
-    public void setLineaDeclaracion(int lineaDeclaracion) {
-        this.lineaDeclaracion = lineaDeclaracion;
-    }
-
-    public int getDireccionMemoria() {
-        return direccionMemoria;
-    }
-
-    public void setDireccionMemoria(int direccionMemoria) {
-        this.direccionMemoria = direccionMemoria;
-    }
+    public int getDireccionMemoria() { return direccionMemoria; }
+    public void setDireccionMemoria(int direccionMemoria) { this.direccionMemoria = direccionMemoria; }
 
     public static int getTamanioEnBytes(String tipoDato) {
-        switch (tipoDato.toLowerCase()) {
-            case "int":
-            case "float":
-                return 4;
-            case "double":
-                return 8;
+        if (tipoDato == null) return 4;
+        switch (tipoDato.toLowerCase().trim()) {
             case "boolean":
+            case "bool":
             case "byte":
                 return 1;
             case "char":
             case "short":
                 return 2;
+            case "int":
+            case "float":
+                return 4;
+            case "double":
+            case "long":
+                return 8;
             default:
-                return 4; 
+                return 4;
         }
     }
 
     @Override
     public String toString() {
         String lineaStr = (lineaDeclaracion != -1) ? String.valueOf(lineaDeclaracion) : "N/A";
-        return String.format("Simbolo { Nombre: '%s', Tipo: '%s', Ámbito: '%s', Valor: %s, Línea: %s, Dir. Memoria: %d }",
-                nombre, tipoDato, ambito, valorInicial, lineaStr, direccionMemoria);
+        int bytes = getTamanioEnBytes(tipoDato);
+        return String.format("Simbolo { Nombre: '%s', Tipo: '%s', Ámbito: '%s', Valor: %s, Línea: %s, Offset: %d (%d bytes) }",
+                nombre, tipoDato, ambito, valorInicial, lineaStr, direccionMemoria, bytes);
     }
 }
