@@ -15,9 +15,11 @@ public class GeneradorIntermedio {
   
     //Función principal que ahce el recorrido en "Postorden"
     public String traducir(NodoAST nodo){
-        if (nodo == null) return "";
+        if (nodo == null) {
+          return "";
+        }
         
-        //Regla 1: Traducción de OperacionBinaria
+        //Regla 1: Traducción de Operaciones Binarias
         if (nodo instanceof NodoAST.OperacionBinaria op){
             
             //1. PostOrden: Da una llamada recursiva al hijo izquierdo
@@ -48,8 +50,7 @@ public class GeneradorIntermedio {
             return asig.nombreVariable;
         }
         
-        //Regla 3: Traduccion de literales (numeros y Variables
-        //Si se llega a la hoja del arbol, simplemente devolvemos su valor
+        //Regla 3: Traduccion de literales (numeros y Variable)
         else if(nodo instanceof NodoAST.Literal lit) {
             return lit.valor.toString(); //aqui retorna el numero
         }
