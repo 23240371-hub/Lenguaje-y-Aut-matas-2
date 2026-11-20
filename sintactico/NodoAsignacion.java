@@ -1,4 +1,6 @@
-class NodoAsignacion extends NodoAST {
+package sintactico;
+
+public class NodoAsignacion extends NodoAST {
     private final String identificador;
     private final NodoAST expresion;
 

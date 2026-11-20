@@ -1,4 +1,6 @@
-class NodoPrint extends NodoAST {
+package sintactico;
+
+public class NodoPrint extends NodoAST {
     private final NodoAST expresion;
 
     public NodoPrint(NodoAST expresion, int linea) {

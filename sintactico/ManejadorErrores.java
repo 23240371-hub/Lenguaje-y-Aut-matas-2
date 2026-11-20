@@ -1,8 +1,14 @@
+package sintactico;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class ManejadorErrores {
+public class ManejadorErrores {
     private final List<String> errores = new ArrayList<>();
+
+    public void agregarErrorSintactico(int fila, int columna, String mensaje) {
+        errores.add("[Error Sintáctico - Fila " + fila + ", Col " + columna + "] " + mensaje);
+    }
 
     public void agregarErrorSintactico(int linea, String mensaje) {
         errores.add("[Error Sintáctico - Línea " + linea + "] " + mensaje);
@@ -14,10 +20,10 @@ class ManejadorErrores {
 
     public void imprimirErrores() {
         if (errores.isEmpty()) {
-            System.out.println("Sin errores.");
+            System.out.println("Sin errores sintácticos.");
             return;
         }
-        System.out.println("Se encontraron " + errores.size() + " error(es):");
+        System.out.println("Se encontraron " + errores.size() + " error(es) sintáctico(s):");
         for (String err : errores) {
             System.out.println("  - " + err);
         }

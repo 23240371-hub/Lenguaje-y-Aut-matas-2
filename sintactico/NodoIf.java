@@ -1,10 +1,12 @@
+package sintactico;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class NodoIf extends NodoAST {
+public class NodoIf extends NodoAST {
     private final NodoAST condicion;
     private final List<NodoAST> bloqueThen;
-    private final List<NodoAST> bloqueElse; // null si no tiene rama else
+    private final List<NodoAST> bloqueElse;
 
     public NodoIf(NodoAST condicion, List<NodoAST> bloqueThen, List<NodoAST> bloqueElse, int linea) {
         super(linea);

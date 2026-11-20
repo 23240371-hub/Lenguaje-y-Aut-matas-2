@@ -1,4 +1,6 @@
-class NodoIdentificador extends NodoAST {
+package sintactico;
+
+public class NodoIdentificador extends NodoAST {
     private final String nombre;
 
     public NodoIdentificador(String nombre, int linea) {

@@ -1,4 +1,6 @@
-class NodoOperacionUnaria extends NodoAST {
+package sintactico;
+
+public class NodoOperacionUnaria extends NodoAST {
     private final String operador;
     private final NodoAST operando;
 
@@ -15,8 +17,9 @@ class NodoOperacionUnaria extends NodoAST {
     public void imprimir(String prefijo, boolean esUltimo) {
         System.out.println(prefijo + (esUltimo ? "└── " : "├── ")
                 + "OpUnaria (" + operador + ")");
+        String nuevoPrefijo = prefijo + (esUltimo ? "    " : "│   ");
         if (operando != null) {
-            operando.imprimir(prefijo + (esUltimo ? "    " : "│   "), true);
+            operando.imprimir(nuevoPrefijo, true);
         }
     }
 }

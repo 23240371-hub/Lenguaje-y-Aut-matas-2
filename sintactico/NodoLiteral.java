@@ -1,4 +1,6 @@
-class NodoLiteral extends NodoAST {
+package sintactico;
+
+public class NodoLiteral extends NodoAST {
     private final Object valor;
     private final String lexema;
     private final String tipoDato;

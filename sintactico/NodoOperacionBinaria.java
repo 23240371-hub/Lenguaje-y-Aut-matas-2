@@ -1,4 +1,6 @@
-class NodoOperacionBinaria extends NodoAST {
+package sintactico;
+
+public class NodoOperacionBinaria extends NodoAST {
     private final NodoAST izquierda;
     private final String operador;
     private final NodoAST derecha;

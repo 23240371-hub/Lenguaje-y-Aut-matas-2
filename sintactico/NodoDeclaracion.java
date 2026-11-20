@@ -1,7 +1,9 @@
-class NodoDeclaracion extends NodoAST {
+package sintactico;
+
+public class NodoDeclaracion extends NodoAST {
     private final String tipoDato;
     private final String identificador;
-    private final NodoAST expresionInicial; // null si es declaración sin inicializar (ej. int x;)
+    private final NodoAST expresionInicial;
 
     public NodoDeclaracion(String tipoDato, String identificador, NodoAST expresionInicial, int linea) {
         super(linea);

@@ -1,0 +1,19 @@
+// Prueba integral de Léxico + Sintáctico
+class PruebaCompilador {
+    main {
+        int a = 10;
+        int b = 4;
+        float promedio = (a + b) / 2.0;
+        int residuo = a % b;
+
+        /* Ciclo con operadores relacionales, lógicos y negación */
+        while (a > 0 && !(b == 0 || residuo < 0)) {
+            if (a >= 5 && b != 2) {
+                print(a);
+            } else {
+                print(promedio);
+            }
+            a = a - 1;
+        }
+    }
+}

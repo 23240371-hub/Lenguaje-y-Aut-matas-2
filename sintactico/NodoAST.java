@@ -1,9 +1,8 @@
+package sintactico;
+
 import java.util.List;
 
-/**
- * Clase base abstracta para todos los nodos del Árbol de Sintaxis Abstracta (AST).
- */
-abstract class NodoAST {
+public abstract class NodoAST {
     protected int linea;
 
     public NodoAST(int linea) {

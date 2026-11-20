@@ -1,7 +1,9 @@
+package sintactico;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class NodoWhile extends NodoAST {
+public class NodoWhile extends NodoAST {
     private final NodoAST condicion;
     private final List<NodoAST> cuerpo;
 
