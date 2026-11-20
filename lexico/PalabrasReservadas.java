@@ -20,6 +20,9 @@ public class PalabrasReservadas {
         LISTA_PALABRAS.add("print");
         LISTA_PALABRAS.add("main");
         LISTA_PALABRAS.add("class");
+        LISTA_PALABRAS.add("if");
+        LISTA_PALABRAS.add("else");
+        LISTA_PALABRAS.add("while");
 
         // Carga del mapa 
         PALABRAS_RESERVADAS.put("int", "PR_INT");
@@ -29,6 +32,9 @@ public class PalabrasReservadas {
         PALABRAS_RESERVADAS.put("print", "PR_PRINT");
         PALABRAS_RESERVADAS.put("main", "PR_MAIN");
         PALABRAS_RESERVADAS.put("class", "PR_CLASS");
+        PALABRAS_RESERVADAS.put("if", "PR_IF");
+        PALABRAS_RESERVADAS.put("else","PR_ELSE");
+        PALABRAS_RESERVADAS.put("while","PR_WHILE");
     }
 
     

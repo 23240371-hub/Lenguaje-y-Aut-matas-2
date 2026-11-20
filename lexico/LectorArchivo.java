@@ -76,4 +76,11 @@ public class LectorArchivo {
     public int getColumna() {
         return columna;
     }
+    //pedro agrego este metodo para que lexer no tenga poblemas ya que lo usa pero no existia
+    public char mirarSiguiente() {
+        if (indice + 1 >= contenido.length()) {
+            return '\0';
+        }
+        return contenido.charAt(indice + 1);
+    }
 }
